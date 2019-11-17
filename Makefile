@@ -1,6 +1,6 @@
 NAME	=	parser.so
 
-SRC	=	parser.cpp http_parser.cpp
+SRC	=	parser.c http_parser.c
 
 OBJ	=	$(SRC:.cpp=.o)
 
@@ -20,4 +20,3 @@ fclean	:	clean
 		rm -f $(NAME)
 
 re	:	fclean all
-
