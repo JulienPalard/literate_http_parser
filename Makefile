@@ -1,15 +1,15 @@
-NAME	=	parser.so
+NAME	=	parser
 
 SRC	=	parser.c http_parser.c
 
-OBJ	=	$(SRC:.cpp=.o)
+OBJ	=	$(SRC:.c=.o)
 
 CFLAGS	=	-W
 
-LDFLAGS	=	--shared -lrt
+LDFLAGS	=	-lrt
 
 $(NAME)	:	$(OBJ)
-		g++ $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
+		cc $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 
 all	:	$(NAME)
 

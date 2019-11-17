@@ -1401,7 +1401,7 @@ void output(char *rule, char *ptr, int len, void *user_data)
             field_value.ptr[field_value.len] = '\0';
         if (strcmp(field_name.ptr, "Host") == 0)
             req->host = field_value;
-        header = malloc(sizeof(*header));
+        header = (struct http_header*)malloc(sizeof(*header));
         header->name = field_name.ptr;
         header->value = field_value.ptr;
         HASH_ADD_KEYPTR(hh, req->headers, header->name, field_name.len, header);
@@ -1432,7 +1432,7 @@ struct http_request *parse(char *str)
     struct http_request *http_request;
     struct http_header *header, *tmp;
 
-    http_request = calloc(1, sizeof(*http_request));
+    http_request = (struct http_request *)calloc(1, sizeof(*http_request));
     http_request->headers = NULL;
     rule_REQUEST(&str, output, http_request);
     if (http_request->complete)
@@ -1477,7 +1477,7 @@ int main(int ac __attribute__((unused)), char **av)
         printf("Version : %s\n", http_request->http_version.ptr);
         for (http_header = http_request->headers;
              http_header != NULL;
-             http_header = http_header->hh.next)
+             http_header = (struct http_header *)http_header->hh.next)
         {
             printf(" | %s => %s\n", http_header->name, http_header->value);
         }
